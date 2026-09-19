@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Splash Party</string>
+    <string name="title_activity_main">Splash Party</string>
+    <string name="package_name">com.splashparty.app</string>
+    <string name="custom_url_scheme">com.splashparty.app</string>
+</resources>
