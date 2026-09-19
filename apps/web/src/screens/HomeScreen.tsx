@@ -9,9 +9,25 @@ export default function HomeScreen() {
 
   return (
     <div className="container center-col">
-      <div className="floaty">
+      <div className="floaty" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+        <div
+          style={{
+            width: 88,
+            height: 88,
+            borderRadius: 28,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'linear-gradient(150deg, rgba(139,92,246,0.35), rgba(236,72,153,0.2))',
+            border: '1px solid var(--surface-border-strong)',
+            boxShadow: '0 20px 50px -12px rgba(139,92,246,0.5)',
+          }}
+        >
+          <span className="brand-emoji" style={{ fontSize: '2.8rem' }}>
+            💦
+          </span>
+        </div>
         <div className="brand">
-          <span className="brand-emoji">💦</span>
           <span>Splash Party</span>
         </div>
       </div>
@@ -20,7 +36,13 @@ export default function HomeScreen() {
         egal ob im selben Raum oder über das Internet.
       </p>
 
-      <div className="stack" style={{ width: '100%', maxWidth: 320, marginTop: 12 }}>
+      <div className="wrap" style={{ justifyContent: 'center' }}>
+        <span className="badge">🧠 10 Spielmodi</span>
+        <span className="badge">♾️ Unbegrenzt Runden</span>
+        <span className="badge">🆓 Komplett kostenlos</span>
+      </div>
+
+      <div className="stack" style={{ width: '100%', maxWidth: 320, marginTop: 8 }}>
         <button className="btn btn-primary btn-block" onClick={() => navigate('/host')}>
           🖥️ Party erstellen
         </button>
@@ -29,8 +51,7 @@ export default function HomeScreen() {
         </button>
       </div>
 
-      <div className="stack-sm" style={{ marginTop: 28, alignItems: 'center' }}>
-        <span className="muted">10 Spielmodi · unbegrenzt Runden · komplett kostenlos</span>
+      <div className="stack-sm" style={{ marginTop: 20, alignItems: 'center' }}>
         <button className="link-btn" onClick={() => setShowSettings((v) => !v)}>
           {isCustomServerRelevant() ? 'Server-Adresse einstellen' : 'Erweitert: Server-Adresse'}
         </button>

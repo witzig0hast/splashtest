@@ -8,7 +8,13 @@ export default function WyrPlayer({ view }: { view: WyrPlayerView }) {
       <h3 style={{ textAlign: 'center' }}>Würdest du eher...</h3>
       <button
         className="btn btn-block"
-        style={{ background: 'linear-gradient(150deg,#7C3AED,#5b21b6)', color: 'white', minHeight: 100, whiteSpace: 'normal' }}
+        style={{
+          background: 'linear-gradient(135deg, var(--violet), var(--violet-strong))',
+          boxShadow: '0 10px 30px -6px rgba(139,92,246,0.55)',
+          color: 'white',
+          minHeight: 100,
+          whiteSpace: 'normal',
+        }}
         disabled={!!view.yourVote}
         onClick={() => playerAction('vote', { choice: 'A' })}
       >
@@ -20,7 +26,13 @@ export default function WyrPlayer({ view }: { view: WyrPlayerView }) {
       </div>
       <button
         className="btn btn-block"
-        style={{ background: 'linear-gradient(150deg,#F97316,#c2410c)', color: 'white', minHeight: 100, whiteSpace: 'normal' }}
+        style={{
+          background: 'linear-gradient(135deg, var(--coral), var(--amber-strong))',
+          boxShadow: '0 10px 30px -6px rgba(251,146,60,0.5)',
+          color: 'white',
+          minHeight: 100,
+          whiteSpace: 'normal',
+        }}
         disabled={!!view.yourVote}
         onClick={() => playerAction('vote', { choice: 'B' })}
       >

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { GAME_REGISTRY } from '@splash/shared';
 
 export default function GameSelectGrid({
@@ -18,11 +19,18 @@ export default function GameSelectGrid({
           <button
             key={g.id}
             className="game-card"
-            style={{ background: `linear-gradient(150deg, ${g.color}, ${g.color}cc)` }}
+            style={
+              {
+                '--card-glow': `radial-gradient(circle at 100% 0%, ${g.color}, transparent 60%)`,
+                '--card-tint': `${g.color}33`,
+              } as CSSProperties
+            }
             disabled={!enough}
             onClick={() => onSelect(g.id)}
           >
-            <span className="emoji">{g.emoji}</span>
+            <span className="icon-badge" style={{ color: g.color }}>
+              {g.emoji}
+            </span>
             <span className="name">{g.name}</span>
             <span className="tagline">{g.tagline}</span>
             <span className="players-need">

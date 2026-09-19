@@ -1,5 +1,6 @@
 import type { RoundResults } from '@splash/shared';
 import { getGameMeta } from '@splash/shared';
+import { rankLabel } from '../lib/rank';
 
 export default function RoundResultsView({ results, meId }: { results: RoundResults; meId?: string }) {
   const meta = getGameMeta(results.gameId);
@@ -14,8 +15,8 @@ export default function RoundResultsView({ results, meId }: { results: RoundResu
       <div className="stack-sm">
         {sorted.map((e, i) => (
           <div key={e.playerId} className={`scoreboard-row ${i === 0 ? 'top1' : ''}`}>
-            <span className="rank">{i + 1}</span>
-            <span className="name" style={{ fontWeight: 800, flex: 1 }}>
+            <span className="rank">{rankLabel(i)}</span>
+            <span className="name" style={{ fontWeight: 700, flex: 1 }}>
               {e.name}
               {e.playerId === meId ? ' (du)' : ''}
             </span>

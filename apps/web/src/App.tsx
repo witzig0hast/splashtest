@@ -14,6 +14,9 @@ export default function App() {
   return (
     <RouterProvider>
       <div className="app-shell">
+        <div className="aurora" aria-hidden="true">
+          <div className="aurora-spot" />
+        </div>
         <Routes />
       </div>
     </RouterProvider>

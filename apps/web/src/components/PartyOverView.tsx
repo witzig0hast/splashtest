@@ -1,5 +1,6 @@
 import type { Player } from '@splash/shared';
 import Confetti from './Confetti';
+import { rankLabel } from '../lib/rank';
 
 export default function PartyOverView({ players, meId }: { players: Player[]; meId?: string }) {
   const sorted = [...players].sort((a, b) => b.score - a.score);
@@ -19,11 +20,11 @@ export default function PartyOverView({ players, meId }: { players: Player[]; me
       <div className="stack-sm">
         {sorted.map((p, i) => (
           <div key={p.id} className={`scoreboard-row ${i === 0 ? 'top1' : ''}`}>
-            <span className="rank">{i === 0 ? '👑' : i + 1}</span>
+            <span className="rank">{i === 0 ? '👑' : rankLabel(i)}</span>
             <span className="avatar avatar-sm" style={{ background: p.colorHex }}>
               {p.avatarEmoji}
             </span>
-            <span className="name" style={{ fontWeight: 800, flex: 1 }}>
+            <span className="name" style={{ fontWeight: 700, flex: 1 }}>
               {p.name}
               {p.id === meId ? ' (du)' : ''}
             </span>

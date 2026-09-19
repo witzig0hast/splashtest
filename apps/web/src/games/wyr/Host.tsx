@@ -12,10 +12,28 @@ export default function WyrHost({ view }: { view: WyrHostView }) {
         </span>
       </div>
       <div className="grid-2" style={{ flex: 1 }}>
-        <div className="card" style={{ background: 'linear-gradient(150deg,#7C3AED,#5b21b6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          className="card"
+          style={{
+            background: 'linear-gradient(160deg, rgba(139,92,246,0.4), rgba(139,92,246,0.08))',
+            borderColor: 'rgba(139,92,246,0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <h2 style={{ textAlign: 'center' }}>{view.optionA}</h2>
         </div>
-        <div className="card" style={{ background: 'linear-gradient(150deg,#F97316,#c2410c)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          className="card"
+          style={{
+            background: 'linear-gradient(160deg, rgba(251,146,60,0.4), rgba(251,146,60,0.08))',
+            borderColor: 'rgba(251,146,60,0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <h2 style={{ textAlign: 'center' }}>{view.optionB}</h2>
         </div>
       </div>

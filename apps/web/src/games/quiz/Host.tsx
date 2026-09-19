@@ -1,7 +1,6 @@
 import type { QuizHostView } from '@splash/shared';
 import TimerBar from '../../components/TimerBar';
-
-const OPTION_COLORS = ['#EF4444', '#3B82F6', '#FBBF24', '#22C55E'];
+import { OPTION_STYLES } from './options';
 
 export default function QuizHost({ view }: { view: QuizHostView }) {
   const timeLeft = view.startedAt && view.timeLimitMs ? Math.max(0, view.timeLimitMs - (Date.now() - view.startedAt)) : 0;
@@ -23,11 +22,14 @@ export default function QuizHost({ view }: { view: QuizHostView }) {
             <div
               key={i}
               className={`answer-btn ${isCorrect ? 'correct' : ''} ${isWrong ? 'wrong' : ''}`}
-              style={{ background: OPTION_COLORS[i] }}
+              style={{ background: OPTION_STYLES[i].gradient }}
             >
+              <span className="answer-shape">{OPTION_STYLES[i].shape}</span>
               {opt}
               {view.phase === 'reveal' && view.optionCounts && (
-                <span style={{ display: 'block', fontSize: '0.75rem', marginTop: 4 }}>{view.optionCounts[i]}×</span>
+                <span style={{ display: 'block', fontSize: '0.75rem', marginTop: 4, opacity: 0.85 }}>
+                  {view.optionCounts[i]}×
+                </span>
               )}
             </div>
           );

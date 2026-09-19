@@ -1,8 +1,7 @@
 import type { QuizPlayerView } from '@splash/shared';
 import TimerBar from '../../components/TimerBar';
 import { useStore } from '../../state/store';
-
-const OPTION_COLORS = ['#EF4444', '#3B82F6', '#FBBF24', '#22C55E'];
+import { OPTION_STYLES } from './options';
 
 export default function QuizPlayer({ view }: { view: QuizPlayerView }) {
   const playerAction = useStore((s) => s.playerAction);
@@ -28,10 +27,11 @@ export default function QuizPlayer({ view }: { view: QuizPlayerView }) {
           <button
             key={i}
             className={`answer-btn ${view.hasAnswered && view.yourAnswer !== i ? 'dim' : ''}`}
-            style={{ background: OPTION_COLORS[i] }}
+            style={{ background: OPTION_STYLES[i].gradient }}
             disabled={view.hasAnswered}
             onClick={() => playerAction('answer', { index: i })}
           >
+            <span className="answer-shape">{OPTION_STYLES[i].shape}</span>
             {opt}
           </button>
         ))}

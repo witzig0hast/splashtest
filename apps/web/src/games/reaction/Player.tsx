@@ -21,7 +21,11 @@ export default function ReactionPlayer({ view }: { view: ReactionPlayerView }) {
       style={{
         minHeight: '55vh',
         fontSize: '2rem',
-        background: view.phase === 'go' ? 'linear-gradient(150deg,#22c55e,#15803d)' : 'linear-gradient(150deg,#6d28d9,#4c1d95)',
+        background:
+          view.phase === 'go'
+            ? 'linear-gradient(150deg, var(--emerald), #0f9d6a)'
+            : 'linear-gradient(150deg, var(--violet), var(--violet-strong))',
+        boxShadow: view.phase === 'go' ? '0 20px 60px -12px rgba(52,211,153,0.55)' : '0 20px 60px -12px rgba(139,92,246,0.45)',
       }}
       disabled={view.hasTapped}
       onClick={() => playerAction('tap')}
