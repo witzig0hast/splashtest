@@ -11,7 +11,7 @@ export default function EmojiPlayer({ view }: { view: EmojiPlayerView }) {
     return (
       <div className="center-col">
         <div style={{ fontSize: '4rem' }}>{view.emojis}</div>
-        <h2>{view.answer}</h2>
+        <h2 className="pop-title">{view.answer}</h2>
         {view.hasSolved && <p className="tagline">Platz {view.yourRank} 🎉</p>}
       </div>
     );

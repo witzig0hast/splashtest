@@ -56,7 +56,7 @@ export default function PlayerScreen() {
     return (
       <div className="container">
         <div className="center-col" style={{ flex: 'none', marginBottom: 12 }}>
-          <div className="brand" style={{ fontSize: '2rem' }}>
+          <div className="brand pop-title" style={{ fontSize: '2rem' }}>
             <span className="brand-emoji" style={{ fontSize: '2rem' }}>
               💦
             </span>
@@ -153,7 +153,7 @@ export default function PlayerScreen() {
         <div className="stack">
           <div className="center-col" style={{ flex: 'none', gap: 6 }}>
             <span className="big-emoji floaty">🎉</span>
-            <h2>Du bist drin!</h2>
+            <h2 className="pop-title">Du bist drin!</h2>
             <p className="muted">Warte, bis der Host ein Spiel startet …</p>
           </div>
           <div className="card">

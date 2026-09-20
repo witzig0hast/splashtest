@@ -16,7 +16,9 @@ export default function SketchPlayer({ view }: { view: SketchPlayerView }) {
     if (view.isDrawer) {
       return (
         <div className="stack">
-          <h2 style={{ textAlign: 'center' }}>Wähle ein Wort</h2>
+          <h2 className="pop-title" style={{ textAlign: 'center' }}>
+            Wähle ein Wort
+          </h2>
           {view.wordChoices?.map((w) => (
             <button key={w} className="btn btn-primary btn-block" onClick={() => playerAction('choose-word', { index: view.wordChoices!.indexOf(w) })}>
               {w}
@@ -53,7 +55,11 @@ export default function SketchPlayer({ view }: { view: SketchPlayerView }) {
             </div>
           </>
         )}
-        {view.phase === 'reveal' && <h2 style={{ textAlign: 'center' }}>Das Wort war: {view.word}</h2>}
+        {view.phase === 'reveal' && (
+          <h2 className="pop-title" style={{ textAlign: 'center' }}>
+            Das Wort war: {view.word}
+          </h2>
+        )}
         <div className="wrap" style={{ justifyContent: 'center' }}>
           {view.guesses.filter((g) => g.correct).map((g, i) => (
             <span key={i} className="badge">

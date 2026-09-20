@@ -10,7 +10,7 @@ export default function BlurtPlayer({ view }: { view: BlurtPlayerView }) {
   if (view.phase === 'reveal') {
     return (
       <div className="center-col">
-        <h2>+{view.pointsAwarded ?? 0} Punkte</h2>
+        <h2 className="pop-title">+{view.pointsAwarded ?? 0} Punkte</h2>
         <div className="wrap" style={{ justifyContent: 'center' }}>
           {view.yourWords.map((w) => (
             <span key={w} className="badge">

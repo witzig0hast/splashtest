@@ -1,4 +1,5 @@
 import type { DareHostView } from '@splash/shared';
+import PromptCard from '../../components/PromptCard';
 
 export default function DareHost({ view }: { view: DareHostView }) {
   return (
@@ -11,12 +12,16 @@ export default function DareHost({ view }: { view: DareHostView }) {
       </div>
       <div className="center-col" style={{ flex: 1 }}>
         <span className="muted">Dran ist</span>
-        <h1>{view.currentPlayerName}</h1>
+        <h1 className="pop-title">{view.currentPlayerName}</h1>
         {view.phase === 'choosing' && <p className="tagline">wählt gerade Wahrheit oder Pflicht …</p>}
         {view.choice && (
-          <div className="card" style={{ marginTop: 12, maxWidth: 420 }}>
-            <span className="badge">{view.choice === 'truth' ? '💬 Wahrheit' : '🔥 Pflicht'}</span>
-            <p style={{ marginTop: 12, fontSize: '1.2rem', fontWeight: 700 }}>{view.prompt}</p>
+          <div style={{ width: '100%', maxWidth: 420, marginTop: 12 }}>
+            <PromptCard
+              icon={view.choice === 'truth' ? '💬' : '🔥'}
+              iconTint={view.choice === 'truth' ? 'rgba(76,141,255,0.16)' : 'rgba(255,90,90,0.16)'}
+              eyebrow={view.choice === 'truth' ? 'Wahrheit' : 'Pflicht'}
+              title={view.prompt ?? ''}
+            />
           </div>
         )}
         {view.phase === 'rating' && view.ratingCounts && (

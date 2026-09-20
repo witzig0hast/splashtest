@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { QuiplashPlayerView } from '@splash/shared';
 import { useStore } from '../../state/store';
+import PromptCard from '../../components/PromptCard';
+import { rankLabel } from '../../lib/rank';
 
 export default function QuiplashPlayer({ view }: { view: QuiplashPlayerView }) {
   const playerAction = useStore((s) => s.playerAction);
@@ -23,7 +25,7 @@ export default function QuiplashPlayer({ view }: { view: QuiplashPlayerView }) {
           if (text.trim()) playerAction('submit', { text: text.trim() });
         }}
       >
-        <h3 style={{ textAlign: 'center' }}>{view.prompt}</h3>
+        <PromptCard icon="✍️" iconTint="rgba(255,178,3,0.16)" eyebrow="Fülle die Lücke" title={view.prompt} />
         <input className="input" value={text} maxLength={80} onChange={(e) => setText(e.target.value)} placeholder="Deine Antwort..." autoFocus />
         <button className="btn btn-primary btn-block" type="submit" disabled={!text.trim()}>
           Absenden
@@ -66,7 +68,7 @@ export default function QuiplashPlayer({ view }: { view: QuiplashPlayerView }) {
       {view.pointsAwarded ? <p className="tagline" style={{ textAlign: 'center' }}>+{view.pointsAwarded} Punkte!</p> : null}
       {view.reveal?.map((r, i) => (
         <div key={r.id} className={`scoreboard-row ${r.isYours ? 'top1' : ''}`}>
-          <span className="rank">{i + 1}</span>
+          <span className="rank">{rankLabel(i)}</span>
           <span style={{ flex: 1 }}>
             “{r.text}”
             <br />

@@ -11,7 +11,7 @@ export default function ImpostorHost({ view }: { view: ImpostorHostView }) {
       </div>
       <div className="center-col" style={{ flex: 'none' }}>
         <span className="muted">Kategorie</span>
-        <h2>{view.category}</h2>
+        <h2 className="pop-title">{view.category}</h2>
       </div>
       {view.phase === 'clue' && (
         <div className="stack-sm">
@@ -40,7 +40,7 @@ export default function ImpostorHost({ view }: { view: ImpostorHostView }) {
       {view.phase === 'reveal' && (
         <div className="center-col" style={{ flex: 'none', gap: 10 }}>
           <span className="big-emoji">🕵️</span>
-          <h2>Das Wort war: {view.word}</h2>
+          <h2 className="pop-title">Das Wort war: {view.word}</h2>
           <p className="tagline">
             Impostor: {view.clueOrder.filter((c) => view.revealedImpostorIds?.includes(c.playerId)).map((c) => c.name).join(', ')}
           </p>

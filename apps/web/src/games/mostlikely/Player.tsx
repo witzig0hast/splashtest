@@ -1,5 +1,6 @@
 import type { MostLikelyPlayerView } from '@splash/shared';
 import { useStore } from '../../state/store';
+import PromptCard from '../../components/PromptCard';
 
 export default function MostLikelyPlayer({ view }: { view: MostLikelyPlayerView }) {
   const playerAction = useStore((s) => s.playerAction);
@@ -7,7 +8,7 @@ export default function MostLikelyPlayer({ view }: { view: MostLikelyPlayerView 
 
   return (
     <div className="stack">
-      <h3 style={{ textAlign: 'center' }}>{view.prompt}</h3>
+      <PromptCard icon="👉" iconTint="rgba(20,199,187,0.16)" eyebrow="Am ehesten" title={view.prompt} />
       {view.phase === 'reveal' && view.winner && (
         <p className="tagline" style={{ textAlign: 'center' }}>
           🏆 {view.winner.name} mit {view.winner.votes} Stimmen!
@@ -20,7 +21,10 @@ export default function MostLikelyPlayer({ view }: { view: MostLikelyPlayerView 
             <button
               key={c.playerId}
               className="btn btn-secondary btn-block"
-              style={{ justifyContent: 'flex-start' }}
+              style={{
+                justifyContent: 'flex-start',
+                ...(view.yourVote === c.playerId ? { background: '#fff', color: 'var(--ink)' } : {}),
+              }}
               disabled={!!view.yourVote || view.phase === 'reveal'}
               onClick={() => playerAction('vote', { candidateId: c.playerId })}
             >

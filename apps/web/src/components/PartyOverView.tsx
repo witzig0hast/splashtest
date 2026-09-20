@@ -10,10 +10,10 @@ export default function PartyOverView({ players, meId }: { players: Player[]; me
       <Confetti />
       <div className="center-col" style={{ flex: 'none', gap: 8 }}>
         <span className="big-emoji pulse">🏆</span>
-        <h1>Party vorbei!</h1>
+        <h1 className="pop-title">Party vorbei!</h1>
         {champion && (
           <p className="tagline">
-            <strong style={{ color: 'var(--accent)' }}>{champion.name}</strong> gewinnt mit {champion.score} Punkten!
+            <strong style={{ color: 'var(--amber)' }}>{champion.name}</strong> gewinnt mit {champion.score} Punkten!
           </p>
         )}
       </div>

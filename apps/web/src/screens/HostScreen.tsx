@@ -74,7 +74,9 @@ export default function HostScreen() {
           </div>
 
           <div className="stack">
-            <h2 style={{ textAlign: 'center' }}>Spiel wählen</h2>
+            <h2 className="pop-title" style={{ textAlign: 'center' }}>
+              Spiel wählen
+            </h2>
             <GameSelectGrid connectedCount={connectedCount} playedGameIds={room.playedGameIds} onSelect={startGame} />
           </div>
         </div>

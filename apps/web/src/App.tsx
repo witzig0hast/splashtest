@@ -1,4 +1,7 @@
+import type { CSSProperties } from 'react';
+import { getGameMeta } from '@splash/shared';
 import { RouterProvider, useRouter } from './lib/router';
+import { useStore } from './state/store';
 import HomeScreen from './screens/HomeScreen';
 import HostScreen from './screens/HostScreen';
 import PlayerScreen from './screens/PlayerScreen';
@@ -11,12 +14,12 @@ function Routes() {
 }
 
 export default function App() {
+  const gameId = useStore((s) => s.gameId);
+  const stage = (gameId && getGameMeta(gameId)?.color) || undefined;
+
   return (
     <RouterProvider>
-      <div className="app-shell">
-        <div className="aurora" aria-hidden="true">
-          <div className="aurora-spot" />
-        </div>
+      <div className="app-shell" style={{ '--stage': stage } as CSSProperties}>
         <Routes />
       </div>
     </RouterProvider>

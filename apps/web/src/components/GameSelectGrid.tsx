@@ -19,12 +19,7 @@ export default function GameSelectGrid({
           <button
             key={g.id}
             className="game-card"
-            style={
-              {
-                '--card-glow': `radial-gradient(circle at 100% 0%, ${g.color}, transparent 60%)`,
-                '--card-tint': `${g.color}33`,
-              } as CSSProperties
-            }
+            style={{ '--card-tint': `${g.color}26` } as CSSProperties}
             disabled={!enough}
             onClick={() => onSelect(g.id)}
           >

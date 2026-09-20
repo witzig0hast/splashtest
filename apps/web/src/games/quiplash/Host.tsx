@@ -1,4 +1,6 @@
 import type { QuiplashHostView } from '@splash/shared';
+import PromptCard from '../../components/PromptCard';
+import { rankLabel } from '../../lib/rank';
 
 export default function QuiplashHost({ view }: { view: QuiplashHostView }) {
   return (
@@ -9,14 +11,17 @@ export default function QuiplashHost({ view }: { view: QuiplashHostView }) {
           {view.round}/{view.totalRounds}
         </span>
       </div>
-      <div className="host-question">{view.prompt}</div>
       {view.phase === 'writing' && (
-        <p className="muted" style={{ textAlign: 'center' }}>
-          ✍️ {view.submittedCount}/{view.totalPlayers} schreiben gerade …
-        </p>
+        <>
+          <PromptCard icon="✍️" iconTint="rgba(255,178,3,0.16)" eyebrow="Fülle die Lücke" title={view.prompt} />
+          <p className="muted" style={{ textAlign: 'center' }}>
+            ✍️ {view.submittedCount}/{view.totalPlayers} schreiben gerade …
+          </p>
+        </>
       )}
       {view.phase === 'voting' && (
         <div className="stack-sm">
+          <div className="host-question">{view.prompt}</div>
           <p className="muted" style={{ textAlign: 'center' }}>
             🗳️ {view.votedCount}/{view.totalPlayers} haben abgestimmt
           </p>
@@ -31,7 +36,7 @@ export default function QuiplashHost({ view }: { view: QuiplashHostView }) {
         <div className="stack-sm">
           {view.reveal?.map((r, i) => (
             <div key={r.id} className={`scoreboard-row ${i === 0 ? 'top1' : ''}`}>
-              <span className="rank">{i + 1}</span>
+              <span className="rank">{rankLabel(i)}</span>
               <span style={{ flex: 1 }}>
                 “{r.text}”
                 <br />

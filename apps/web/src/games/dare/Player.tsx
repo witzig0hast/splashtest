@@ -1,5 +1,6 @@
 import type { DarePlayerView } from '@splash/shared';
 import { useStore } from '../../state/store';
+import PromptCard from '../../components/PromptCard';
 
 export default function DarePlayer({ view }: { view: DarePlayerView }) {
   const playerAction = useStore((s) => s.playerAction);
@@ -9,13 +10,15 @@ export default function DarePlayer({ view }: { view: DarePlayerView }) {
       <div className="stack">
         <div className="center-col" style={{ flex: 'none' }}>
           <span className="muted">Dran ist</span>
-          <h2>{view.currentPlayerName}</h2>
+          <h2 className="pop-title">{view.currentPlayerName}</h2>
         </div>
         {view.prompt && (
-          <div className="card">
-            <span className="badge">{view.choice === 'truth' ? '💬 Wahrheit' : '🔥 Pflicht'}</span>
-            <p style={{ marginTop: 12, fontWeight: 700 }}>{view.prompt}</p>
-          </div>
+          <PromptCard
+            icon={view.choice === 'truth' ? '💬' : '🔥'}
+            iconTint={view.choice === 'truth' ? 'rgba(76,141,255,0.16)' : 'rgba(255,90,90,0.16)'}
+            eyebrow={view.choice === 'truth' ? 'Wahrheit' : 'Pflicht'}
+            title={view.prompt}
+          />
         )}
         {view.phase === 'rating' && view.canRate && (
           <div className="grid-2">
@@ -36,7 +39,9 @@ export default function DarePlayer({ view }: { view: DarePlayerView }) {
   if (view.phase === 'choosing') {
     return (
       <div className="stack">
-        <h2 style={{ textAlign: 'center' }}>Du bist dran!</h2>
+        <h2 className="pop-title" style={{ textAlign: 'center' }}>
+          Du bist dran!
+        </h2>
         <div className="grid-2">
           <button className="btn btn-primary btn-block" onClick={() => playerAction('choose', { choice: 'truth' })}>
             💬 Wahrheit
@@ -52,10 +57,12 @@ export default function DarePlayer({ view }: { view: DarePlayerView }) {
   if (view.phase === 'prompt') {
     return (
       <div className="stack">
-        <div className="card">
-          <span className="badge">{view.choice === 'truth' ? '💬 Wahrheit' : '🔥 Pflicht'}</span>
-          <p style={{ marginTop: 12, fontSize: '1.15rem', fontWeight: 700 }}>{view.prompt}</p>
-        </div>
+        <PromptCard
+          icon={view.choice === 'truth' ? '💬' : '🔥'}
+          iconTint={view.choice === 'truth' ? 'rgba(76,141,255,0.16)' : 'rgba(255,90,90,0.16)'}
+          eyebrow={view.choice === 'truth' ? 'Wahrheit' : 'Pflicht'}
+          title={view.prompt ?? ''}
+        />
         <button className="btn btn-accent btn-block" onClick={() => playerAction('done')}>
           Fertig ✅
         </button>
@@ -75,7 +82,7 @@ export default function DarePlayer({ view }: { view: DarePlayerView }) {
   return (
     <div className="center-col">
       <span className="big-emoji">🎉</span>
-      <h2>+{view.pointsAwarded ?? 0} Punkte</h2>
+      <h2 className="pop-title">+{view.pointsAwarded ?? 0} Punkte</h2>
     </div>
   );
 }

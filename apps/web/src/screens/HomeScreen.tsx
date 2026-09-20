@@ -9,25 +9,30 @@ export default function HomeScreen() {
 
   return (
     <div className="container center-col">
-      <div className="floaty" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+      <div className="floaty" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+        <span className="sparkle" style={{ top: -14, left: -26 }}>
+          ✨
+        </span>
+        <span className="sparkle" style={{ top: 6, right: -30, animationDelay: '0.6s' }}>
+          ⭐
+        </span>
         <div
           style={{
-            width: 88,
-            height: 88,
-            borderRadius: 28,
+            width: 92,
+            height: 92,
+            borderRadius: 30,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'linear-gradient(150deg, rgba(139,92,246,0.35), rgba(236,72,153,0.2))',
-            border: '1px solid var(--surface-border-strong)',
-            boxShadow: '0 20px 50px -12px rgba(139,92,246,0.5)',
+            background: '#fff',
+            boxShadow: 'var(--shadow-lg)',
           }}
         >
-          <span className="brand-emoji" style={{ fontSize: '2.8rem' }}>
+          <span className="brand-emoji" style={{ fontSize: '2.9rem' }}>
             💦
           </span>
         </div>
-        <div className="brand">
+        <div className="brand pop-title">
           <span>Splash Party</span>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import type { MostLikelyHostView } from '@splash/shared';
+import PromptCard from '../../components/PromptCard';
 
 export default function MostLikelyHost({ view }: { view: MostLikelyHostView }) {
   const tally = view.votesByCandidate ?? {};
@@ -10,7 +11,7 @@ export default function MostLikelyHost({ view }: { view: MostLikelyHostView }) {
           {view.round}/{view.totalRounds}
         </span>
       </div>
-      <div className="host-question">{view.prompt}</div>
+      <PromptCard icon="👉" iconTint="rgba(20,199,187,0.16)" eyebrow="Am ehesten" title={view.prompt} />
       <div className="wrap" style={{ justifyContent: 'center' }}>
         {view.candidates.map((c) => (
           <div key={c.playerId} className="card card-tight stack-sm" style={{ alignItems: 'center', minWidth: 90 }}>

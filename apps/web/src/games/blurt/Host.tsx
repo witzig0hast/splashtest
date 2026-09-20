@@ -1,5 +1,6 @@
 import type { BlurtHostView } from '@splash/shared';
 import TimerBar from '../../components/TimerBar';
+import { rankLabel } from '../../lib/rank';
 
 export default function BlurtHost({ view }: { view: BlurtHostView }) {
   return (
@@ -12,7 +13,7 @@ export default function BlurtHost({ view }: { view: BlurtHostView }) {
       </div>
       <div className="center-col" style={{ flex: 'none', gap: 4 }}>
         <span className="muted">Kategorie</span>
-        <h2>{view.category}</h2>
+        <h2 className="pop-title">{view.category}</h2>
         <span className="code-display" style={{ fontSize: '2.6rem' }}>
           {view.letter}
         </span>
@@ -36,7 +37,7 @@ export default function BlurtHost({ view }: { view: BlurtHostView }) {
             .sort((a, b) => b.total - a.total)
             .map((r, i) => (
               <div key={r.playerId} className={`scoreboard-row ${i === 0 ? 'top1' : ''}`}>
-                <span className="rank">{i + 1}</span>
+                <span className="rank">{rankLabel(i)}</span>
                 <span style={{ flex: 1 }}>
                   {r.name}
                   <br />

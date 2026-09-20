@@ -9,7 +9,7 @@ export default function RoundResultsView({ results, meId }: { results: RoundResu
     <div className="stack">
       <div className="center-col" style={{ flex: 'none', gap: 6 }}>
         <span className="big-emoji">{meta?.emoji ?? '🎉'}</span>
-        <h2>{results.gameName} vorbei!</h2>
+        <h2 className="pop-title">{results.gameName} vorbei!</h2>
         <p className="muted">Gesamtstand nach diesem Spiel</p>
       </div>
       <div className="stack-sm">
