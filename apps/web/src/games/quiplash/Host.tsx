@@ -13,7 +13,7 @@ export default function QuiplashHost({ view }: { view: QuiplashHostView }) {
       </div>
       {view.phase === 'writing' && (
         <>
-          <PromptCard icon="✍️" iconTint="rgba(255,178,3,0.16)" eyebrow="Fülle die Lücke" title={view.prompt} />
+          <PromptCard icon="✍️" eyebrow="Fülle die Lücke" title={view.prompt} />
           <p className="muted" style={{ textAlign: 'center' }}>
             ✍️ {view.submittedCount}/{view.totalPlayers} schreiben gerade …
           </p>

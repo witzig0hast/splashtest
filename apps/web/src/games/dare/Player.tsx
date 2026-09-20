@@ -15,7 +15,6 @@ export default function DarePlayer({ view }: { view: DarePlayerView }) {
         {view.prompt && (
           <PromptCard
             icon={view.choice === 'truth' ? '💬' : '🔥'}
-            iconTint={view.choice === 'truth' ? 'rgba(76,141,255,0.16)' : 'rgba(255,90,90,0.16)'}
             eyebrow={view.choice === 'truth' ? 'Wahrheit' : 'Pflicht'}
             title={view.prompt}
           />
@@ -59,7 +58,6 @@ export default function DarePlayer({ view }: { view: DarePlayerView }) {
       <div className="stack">
         <PromptCard
           icon={view.choice === 'truth' ? '💬' : '🔥'}
-          iconTint={view.choice === 'truth' ? 'rgba(76,141,255,0.16)' : 'rgba(255,90,90,0.16)'}
           eyebrow={view.choice === 'truth' ? 'Wahrheit' : 'Pflicht'}
           title={view.prompt ?? ''}
         />

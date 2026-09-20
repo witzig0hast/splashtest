@@ -18,7 +18,6 @@ export default function DareHost({ view }: { view: DareHostView }) {
           <div style={{ width: '100%', maxWidth: 420, marginTop: 12 }}>
             <PromptCard
               icon={view.choice === 'truth' ? '💬' : '🔥'}
-              iconTint={view.choice === 'truth' ? 'rgba(76,141,255,0.16)' : 'rgba(255,90,90,0.16)'}
               eyebrow={view.choice === 'truth' ? 'Wahrheit' : 'Pflicht'}
               title={view.prompt ?? ''}
             />

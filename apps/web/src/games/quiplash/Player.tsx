@@ -25,7 +25,7 @@ export default function QuiplashPlayer({ view }: { view: QuiplashPlayerView }) {
           if (text.trim()) playerAction('submit', { text: text.trim() });
         }}
       >
-        <PromptCard icon="✍️" iconTint="rgba(255,178,3,0.16)" eyebrow="Fülle die Lücke" title={view.prompt} />
+        <PromptCard icon="✍️" eyebrow="Fülle die Lücke" title={view.prompt} />
         <input className="input" value={text} maxLength={80} onChange={(e) => setText(e.target.value)} placeholder="Deine Antwort..." autoFocus />
         <button className="btn btn-primary btn-block" type="submit" disabled={!text.trim()}>
           Absenden

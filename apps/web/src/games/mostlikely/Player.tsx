@@ -8,7 +8,7 @@ export default function MostLikelyPlayer({ view }: { view: MostLikelyPlayerView 
 
   return (
     <div className="stack">
-      <PromptCard icon="👉" iconTint="rgba(20,199,187,0.16)" eyebrow="Am ehesten" title={view.prompt} />
+      <PromptCard icon="👉" eyebrow="Am ehesten" title={view.prompt} />
       {view.phase === 'reveal' && view.winner && (
         <p className="tagline" style={{ textAlign: 'center' }}>
           🏆 {view.winner.name} mit {view.winner.votes} Stimmen!
