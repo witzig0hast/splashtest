@@ -9,8 +9,8 @@ export default function WyrPlayer({ view }: { view: WyrPlayerView }) {
       <button
         className="btn btn-block"
         style={{
-          background: 'linear-gradient(135deg, var(--violet), var(--violet-strong))',
-          boxShadow: '0 10px 30px -6px rgba(139,92,246,0.55)',
+          background: 'var(--violet)',
+          boxShadow: '0 8px 20px -6px rgba(124,108,246,0.6)',
           color: 'white',
           minHeight: 100,
           whiteSpace: 'normal',
@@ -27,8 +27,8 @@ export default function WyrPlayer({ view }: { view: WyrPlayerView }) {
       <button
         className="btn btn-block"
         style={{
-          background: 'linear-gradient(135deg, var(--coral), var(--amber-strong))',
-          boxShadow: '0 10px 30px -6px rgba(251,146,60,0.5)',
+          background: 'var(--coral)',
+          boxShadow: '0 8px 20px -6px rgba(255,138,91,0.6)',
           color: 'white',
           minHeight: 100,
           whiteSpace: 'normal',

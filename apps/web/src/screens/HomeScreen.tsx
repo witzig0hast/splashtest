@@ -10,22 +10,19 @@ export default function HomeScreen() {
   return (
     <div className="container center-col">
       <div className="floaty" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-        <span className="sparkle" style={{ top: -14, left: -26 }}>
-          ✨
-        </span>
-        <span className="sparkle" style={{ top: 6, right: -30, animationDelay: '0.6s' }}>
-          ⭐
-        </span>
         <div
           style={{
-            width: 92,
-            height: 92,
-            borderRadius: 30,
+            width: 88,
+            height: 88,
+            borderRadius: 26,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: '#fff',
-            boxShadow: 'var(--shadow-lg)',
+            background: 'var(--glass-bg-strong)',
+            backdropFilter: 'var(--glass-blur)',
+            WebkitBackdropFilter: 'var(--glass-blur)',
+            border: '1px solid var(--glass-border)',
+            boxShadow: 'var(--glass-shadow)',
           }}
         >
           <span className="brand-emoji" style={{ fontSize: '2.9rem' }}>

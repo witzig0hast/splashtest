@@ -21,11 +21,9 @@ export default function ReactionPlayer({ view }: { view: ReactionPlayerView }) {
       style={{
         minHeight: '55vh',
         fontSize: '2rem',
-        background:
-          view.phase === 'go'
-            ? 'linear-gradient(150deg, var(--emerald), #0f9d6a)'
-            : 'linear-gradient(150deg, var(--violet), var(--violet-strong))',
-        boxShadow: view.phase === 'go' ? '0 20px 60px -12px rgba(52,211,153,0.55)' : '0 20px 60px -12px rgba(139,92,246,0.45)',
+        color: '#fff',
+        background: view.phase === 'go' ? 'var(--emerald)' : 'var(--violet)',
+        boxShadow: view.phase === 'go' ? '0 20px 50px -12px rgba(36,201,138,0.55)' : '0 20px 50px -12px rgba(124,108,246,0.5)',
       }}
       disabled={view.hasTapped}
       onClick={() => playerAction('tap')}

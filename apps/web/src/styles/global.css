@@ -1,37 +1,44 @@
 :root {
-  --brand: #00c2b2;
+  --brand: #5b6cf9;
 
-  --ink: #140a2e;
-  --surface-soft: #f4f1fb;
-  --surface-line: rgba(24, 18, 43, 0.08);
+  --bg-base: #eef0f7;
+  --ink: #1c1c1e;
+  --ink-dim: rgba(28, 28, 30, 0.62);
+  --ink-faint: rgba(28, 28, 30, 0.4);
 
-  --violet: #8b5cf6;
-  --violet-strong: #7c3aed;
-  --pink: #ff5d99;
-  --coral: #ff7a59;
-  --amber: #ffd23f;
-  --amber-strong: #ffb703;
-  --cyan: #22d3ee;
-  --emerald: #2ee6a6;
+  --violet: #7c6cf6;
+  --pink: #ef5da8;
+  --coral: #ff8a5b;
+  --amber: #ffb020;
+  --cyan: #21c7e0;
+  --emerald: #24c98a;
   --sky: #4c8dff;
-  --red: #ff5a5a;
-  --red-strong: #ef4444;
+  --red: #ff5b5b;
 
-  --accent: var(--amber);
-  --success: #22c55e;
-  --danger: #ef4444;
+  --success: #24c98a;
+  --danger: #ff5b5b;
+
+  /* Glass: translucent white, blurred, with a bright rim and a soft
+     ambient shadow so panels feel like they're floating a few mm above
+     the blurred, colorful background behind them. */
+  --glass-bg: rgba(255, 255, 255, 0.58);
+  --glass-bg-strong: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 1px 1px rgba(255, 255, 255, 0.7) inset, 0 12px 28px rgba(31, 30, 60, 0.14),
+    0 2px 6px rgba(31, 30, 60, 0.08);
+  --glass-blur: blur(28px) saturate(180%);
 
   --r-xs: 10px;
   --r-sm: 16px;
   --r-md: 22px;
-  --r-lg: 30px;
+  --r-lg: 28px;
   --r-full: 999px;
 
-  --shadow-sm: 0 4px 14px rgba(8, 4, 20, 0.22);
-  --shadow-md: 0 16px 34px rgba(8, 4, 20, 0.32);
-  --shadow-lg: 0 26px 60px rgba(8, 4, 20, 0.4);
+  --shadow-sm: 0 2px 10px rgba(31, 30, 60, 0.12);
+  --shadow-md: 0 10px 26px rgba(31, 30, 60, 0.16);
+  --shadow-lg: 0 20px 50px rgba(31, 30, 60, 0.22);
 
-  --font-display: 'Baloo 2', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   color-scheme: light;
 }
@@ -49,8 +56,8 @@ body,
 body {
   margin: 0;
   font-family: var(--font-body);
-  color: #ffffff;
-  background: var(--brand);
+  color: var(--ink);
+  background: var(--bg-base);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
@@ -64,7 +71,7 @@ h4 {
   font-family: var(--font-display);
   font-weight: 700;
   margin: 0;
-  letter-spacing: 0.2px;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -79,20 +86,15 @@ a {
   color: inherit;
 }
 
-/* ---------- Stage: full-bleed color field per screen/game ---------- */
+/* ---------- Stage: soft blurred color light behind the glass ---------- */
 
 .app-shell {
-  /* --stage/--card-a/--card-b are computed in JS (see lib/color.ts) and
-     set as inline custom properties here, then inherited by every
-     colored surface below (cards, tiles, rows) - always rich/saturated
-     and dark enough for white text, whatever the stage hue. */
   position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--stage, var(--brand));
-  background-image: radial-gradient(130% 75% at 50% -14%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 55%);
-  transition: background-color 0.35s ease;
+  background: var(--bg-base);
+  isolation: isolate;
 }
 
 .app-shell::before,
@@ -100,24 +102,27 @@ a {
   content: '';
   position: fixed;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  filter: blur(70px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .app-shell::before {
-  width: 46vmax;
-  height: 46vmax;
-  top: -18vmax;
-  right: -16vmax;
+  width: 55vmax;
+  height: 55vmax;
+  top: -22vmax;
+  right: -18vmax;
+  background: var(--stage, var(--brand));
+  opacity: 0.4;
 }
 
 .app-shell::after {
-  width: 30vmax;
-  height: 30vmax;
-  bottom: -12vmax;
-  left: -10vmax;
-  background: rgba(255, 255, 255, 0.07);
+  width: 42vmax;
+  height: 42vmax;
+  bottom: -18vmax;
+  left: -14vmax;
+  background: var(--stage-2, var(--pink));
+  opacity: 0.28;
 }
 
 .container {
@@ -146,7 +151,7 @@ a {
   gap: 18px;
 }
 
-/* ---------- Brand & sticker headline text ---------- */
+/* ---------- Brand & headline text ---------- */
 
 .brand {
   display: flex;
@@ -154,33 +159,28 @@ a {
   justify-content: center;
   gap: 12px;
   font-family: var(--font-display);
-  font-size: 2.6rem;
+  font-size: 2.3rem;
   font-weight: 800;
-  letter-spacing: 0.2px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
 
 .brand-emoji {
-  font-size: 2.3rem;
+  font-size: 2rem;
 }
 
-/* Sticker/poster text: a crisp dark outline plus a soft drop shadow,
-   built from layered text-shadows (renders consistently everywhere,
-   unlike -webkit-text-stroke which gets jagged on curves). */
 .pop-title {
-  color: #fff;
+  color: var(--ink);
   font-weight: 800;
-  text-shadow: -0.045em -0.045em 0 rgba(8, 4, 18, 0.65), 0.045em -0.045em 0 rgba(8, 4, 18, 0.65),
-    -0.045em 0.045em 0 rgba(8, 4, 18, 0.65), 0.045em 0.045em 0 rgba(8, 4, 18, 0.65),
-    -0.045em 0 0 rgba(8, 4, 18, 0.65), 0.045em 0 0 rgba(8, 4, 18, 0.65), 0 -0.045em 0 rgba(8, 4, 18, 0.65),
-    0 0.045em 0 rgba(8, 4, 18, 0.65), 0 0.14em 0 rgba(8, 4, 18, 0.35), 0 0.3em 0.4em rgba(8, 4, 18, 0.4);
+  letter-spacing: -0.02em;
 }
 
 .pop-title.accent {
-  color: var(--amber);
+  color: var(--brand);
 }
 
 .tagline {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink-dim);
   font-size: 1.02rem;
   line-height: 1.5;
   max-width: 340px;
@@ -195,11 +195,10 @@ a {
   padding: 15px 26px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.02rem;
-  letter-spacing: 0.2px;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.15s ease,
-    background 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.15s ease, background 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -208,16 +207,15 @@ a {
 }
 
 .btn:hover {
-  filter: brightness(1.06);
-  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
 .btn:active {
-  transform: translateY(0) scale(0.97);
+  transform: scale(0.97);
 }
 
 .btn:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
   filter: grayscale(0.3);
   transform: none;
@@ -228,65 +226,69 @@ a {
 }
 
 .btn-primary {
-  background: #ffffff;
-  color: var(--ink);
+  background: var(--stage, var(--brand));
+  color: #fff;
+  box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--stage, var(--brand)) 65%, transparent);
 }
 
 .btn-accent {
-  background: linear-gradient(135deg, var(--amber), var(--amber-strong));
+  background: var(--amber);
   color: #3a2400;
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: var(--ink);
+  border: 1px solid var(--glass-border);
   box-shadow: none;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--glass-bg-strong);
 }
 
 .btn-ghost {
   background: transparent;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--ink-dim);
   box-shadow: none;
   padding: 10px 16px;
 }
 
 .btn-ghost:hover {
-  color: #fff;
+  color: var(--ink);
   filter: none;
-  transform: none;
 }
 
 .btn-danger {
-  background: linear-gradient(135deg, var(--red), var(--red-strong));
+  background: var(--red);
   color: white;
 }
 
 .btn-sm {
   padding: 9px 16px;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   border-radius: var(--r-sm);
 }
 
-/* ---------- Surfaces: rich color gradient of the current stage, white text ---------- */
+/* ---------- Glass surfaces ---------- */
 
 .card,
 .game-card,
 .prompt-card,
 .scoreboard-row {
-  background: linear-gradient(165deg, var(--card-a), var(--card-b));
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: var(--ink);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 .card {
   border-radius: var(--r-lg);
   padding: 22px;
-  box-shadow: var(--shadow-md);
 }
 
 .card-tight {
@@ -298,8 +300,8 @@ a {
   width: 100%;
   padding: 15px 18px;
   border-radius: var(--r-md);
-  border: 2px solid var(--surface-line);
-  background: var(--surface-soft);
+  border: 1.5px solid rgba(28, 28, 30, 0.12);
+  background: rgba(255, 255, 255, 0.7);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.02rem;
@@ -309,22 +311,21 @@ a {
 }
 
 .input:focus {
-  border-color: var(--violet);
+  border-color: var(--stage, var(--violet));
   background: #fff;
 }
 
 .input::placeholder {
-  color: rgba(24, 18, 43, 0.38);
+  color: var(--ink-faint);
   font-weight: 500;
 }
 
 .code-display {
   font-family: var(--font-display);
-  font-size: 3rem;
-  letter-spacing: 9px;
+  font-size: 2.8rem;
+  letter-spacing: 8px;
   font-weight: 800;
-  color: var(--amber);
-  text-shadow: 0 3px 0 rgba(9, 5, 20, 0.25);
+  color: var(--stage, var(--brand));
 }
 
 .badge {
@@ -333,11 +334,13 @@ a {
   gap: 6px;
   padding: 7px 14px;
   border-radius: var(--r-full);
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   font-weight: 700;
   font-size: 0.82rem;
-  color: #fff;
+  color: var(--ink);
 }
 
 .avatar {
@@ -349,7 +352,7 @@ a {
   border-radius: 50%;
   font-size: 1.4rem;
   flex-shrink: 0;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), var(--shadow-sm);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), var(--shadow-sm);
 }
 
 .avatar-sm {
@@ -364,18 +367,15 @@ a {
   font-size: 2.3rem;
 }
 
-/* Nested inside an already-colored .card (e.g. the player list),
-   rows use a translucent white overlay instead of stacking another
-   full gradient, so it reads as "item inside a card" not "card in a card". */
 .player-row {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 11px 14px;
   border-radius: var(--r-md);
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .player-row .name {
@@ -386,8 +386,8 @@ a {
 
 .score {
   font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--amber);
+  font-weight: 800;
+  color: var(--stage, var(--brand));
 }
 
 .player-row.dimmed {
@@ -400,7 +400,7 @@ a {
   gap: 12px;
 }
 
-/* ---------- Game select grid: each tile in its own brand color ---------- */
+/* ---------- Game select grid ---------- */
 
 .game-grid {
   display: grid;
@@ -417,15 +417,14 @@ a {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 150px;
+  min-height: 148px;
   overflow: hidden;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
-  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .game-card:hover:not(:disabled) {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  background: var(--glass-bg-strong);
 }
 
 .game-card:active:not(:disabled) {
@@ -433,25 +432,27 @@ a {
 }
 
 .game-card .icon-badge {
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  background: rgba(255, 255, 255, 0.22);
+  font-size: 1.4rem;
+  background: var(--tile, var(--brand));
+  box-shadow: 0 6px 14px -4px var(--tile, var(--brand));
 }
 
 .game-card .name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
+  color: var(--ink);
 }
 
 .game-card .tagline {
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--ink-dim);
   max-width: none;
 }
 
@@ -459,7 +460,7 @@ a {
   margin-top: auto;
   font-size: 0.7rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--ink-faint);
 }
 
 .game-card:disabled {
@@ -470,16 +471,16 @@ a {
 /* ---------- Timer ---------- */
 
 .timer-bar {
-  height: 10px;
+  height: 8px;
   border-radius: var(--r-full);
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(28, 28, 30, 0.1);
   overflow: hidden;
 }
 
 .timer-bar-fill {
   height: 100%;
   border-radius: var(--r-full);
-  background: var(--amber);
+  background: var(--stage, var(--brand));
   transition: width 0.2s linear;
 }
 
@@ -527,7 +528,7 @@ a {
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 8px;
 }
 
@@ -547,7 +548,7 @@ a {
 .pill-toggle {
   display: flex;
   border-radius: var(--r-full);
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(28, 28, 30, 0.06);
   padding: 4px;
   gap: 4px;
 }
@@ -556,7 +557,7 @@ a {
   flex: 1;
   border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--ink-dim);
   font-family: var(--font-display);
   font-weight: 700;
   padding: 10px;
@@ -568,6 +569,7 @@ a {
 .pill-toggle button.active {
   background: #fff;
   color: var(--ink);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ---------- Prompt card (stacked-deck look) ---------- */
@@ -585,6 +587,7 @@ a {
   height: 100%;
   border-radius: var(--r-lg);
   background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .prompt-ghost-1 {
@@ -594,7 +597,7 @@ a {
 
 .prompt-ghost-2 {
   transform: translateY(20px) scale(0.94) rotate(2.2deg);
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .prompt-card {
@@ -603,7 +606,7 @@ a {
   border-radius: var(--r-lg);
   padding: 32px 24px;
   text-align: center;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--glass-shadow), var(--shadow-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -611,14 +614,15 @@ a {
 }
 
 .prompt-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 18px;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.7rem;
-  background: rgba(255, 255, 255, 0.22);
+  font-size: 1.6rem;
+  background: var(--stage, var(--brand));
+  box-shadow: 0 8px 18px -4px var(--stage, var(--brand));
 }
 
 .prompt-eyebrow {
@@ -626,27 +630,28 @@ a {
   letter-spacing: 1.6px;
   font-size: 0.72rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--ink-faint);
 }
 
 .prompt-title {
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   font-weight: 800;
   line-height: 1.3;
-  text-shadow: 0 3px 0 rgba(9, 5, 20, 0.18);
+  color: var(--ink);
+  letter-spacing: -0.01em;
 }
 
 .prompt-divider {
   display: flex;
   gap: 6px;
-  opacity: 0.4;
+  opacity: 0.3;
   font-size: 0.9rem;
 }
 
 .prompt-body {
-  font-size: 1.08rem;
-  font-weight: 700;
-  opacity: 0.92;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink-dim);
   line-height: 1.4;
 }
 
@@ -662,21 +667,20 @@ a {
 
 .scoreboard-row .rank {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
   width: 28px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 1.1rem;
+  color: var(--ink-faint);
+  font-size: 1.05rem;
 }
 
 .scoreboard-row.top1 {
-  --card-a: #e0a527;
-  --card-b: #7a2352;
-  box-shadow: 0 14px 30px -10px rgba(255, 178, 3, 0.55);
+  background: linear-gradient(120deg, rgba(255, 176, 32, 0.28), rgba(255, 255, 255, 0.6));
+  border-color: rgba(255, 176, 32, 0.5);
 }
 
 .scoreboard-row.top1 .rank {
-  color: #fff;
+  color: #b8790a;
 }
 
 .stack {
@@ -711,14 +715,14 @@ a {
 }
 
 .muted {
-  opacity: 0.78;
+  opacity: 0.75;
   font-size: 0.9rem;
 }
 
 .error-banner {
-  background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 90, 90, 0.6);
-  color: #fff;
+  background: rgba(255, 91, 91, 0.12);
+  border: 1px solid rgba(255, 91, 91, 0.4);
+  color: #b8271f;
   padding: 13px 16px;
   border-radius: var(--r-md);
   font-weight: 700;
@@ -743,8 +747,8 @@ a {
 }
 
 .emoji-picker button {
-  border: 1.5px solid transparent;
-  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(28, 28, 30, 0.08);
+  background: rgba(255, 255, 255, 0.55);
   border-radius: var(--r-sm);
   font-size: 1.4rem;
   padding: 8px 0;
@@ -753,8 +757,8 @@ a {
 }
 
 .emoji-picker button.selected {
-  border-color: var(--amber);
-  background: rgba(255, 210, 63, 0.3);
+  border-color: var(--stage, var(--brand));
+  background: rgba(255, 255, 255, 0.85);
   transform: scale(1.05);
 }
 
@@ -774,15 +778,14 @@ a {
 }
 
 .color-swatch.selected {
-  border-color: #fff;
+  border-color: var(--ink);
   transform: scale(1.15);
   box-shadow: var(--shadow-sm);
 }
 
 .big-emoji {
-  font-size: 4.2rem;
+  font-size: 4rem;
   line-height: 1;
-  filter: drop-shadow(0 10px 20px rgba(9, 5, 20, 0.3));
 }
 
 .confetti-piece {
@@ -837,11 +840,11 @@ a {
 
 .host-question {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.6vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.4vw, 2.2rem);
   text-align: center;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 3px 0 rgba(9, 5, 20, 0.2);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
 }
 
 .qr-frame {
@@ -855,7 +858,7 @@ a {
 .link-btn {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--ink-dim);
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -864,7 +867,7 @@ a {
 }
 
 .link-btn:hover {
-  color: #fff;
+  color: var(--ink);
 }
 
 .top-bar {
@@ -880,24 +883,21 @@ a {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: 3px;
-  background: rgba(255, 255, 255, 0.22);
+  background: var(--glass-bg);
   padding: 8px 16px;
   border-radius: var(--r-full);
 }
 
 .sparkle {
-  position: absolute;
-  font-size: 1.4rem;
-  filter: drop-shadow(0 4px 8px rgba(9, 5, 20, 0.25));
-  animation: pulse 2.4s ease-in-out infinite;
+  display: none;
 }
 
 @media (max-width: 380px) {
   .brand {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
   .code-display {
-    font-size: 2.3rem;
+    font-size: 2.2rem;
     letter-spacing: 6px;
   }
 }

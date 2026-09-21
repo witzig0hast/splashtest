@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react';
 import { GAME_REGISTRY } from '@splash/shared';
-import { cardGradientStops } from '../lib/color';
 
 export default function GameSelectGrid({
   connectedCount,
@@ -16,12 +15,11 @@ export default function GameSelectGrid({
       {GAME_REGISTRY.map((g) => {
         const enough = connectedCount >= g.minPlayers;
         const playedBefore = playedGameIds.includes(g.id);
-        const { a, b } = cardGradientStops(g.color);
         return (
           <button
             key={g.id}
             className="game-card"
-            style={{ '--card-a': a, '--card-b': b } as CSSProperties}
+            style={{ '--tile': g.color } as CSSProperties}
             disabled={!enough}
             onClick={() => onSelect(g.id)}
           >
