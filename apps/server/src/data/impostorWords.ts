@@ -31,3 +31,21 @@ export const IMPOSTOR_WORD_SETS: ImpostorWordSet[] = [
   { category: 'Wetter', word: 'Gewitter' },
   { category: 'Wetter', word: 'Regenbogen' },
 ];
+
+export const IMPOSTOR_WORD_SETS_JUGENDLICH: ImpostorWordSet[] = [
+  { category: 'Gaming', word: 'Minecraft' },
+  { category: 'Gaming', word: 'Fortnite' },
+  { category: 'Gaming', word: 'Among Us' },
+  { category: 'Social Media', word: 'TikTok' },
+  { category: 'Social Media', word: 'Instagram' },
+  { category: 'Social Media', word: 'Snapchat' },
+  { category: 'Streaming', word: 'Netflix' },
+  { category: 'Streaming', word: 'Twitch' },
+  { category: 'Streaming', word: 'Disney+' },
+  { category: 'Internet-Trends', word: 'Meme' },
+  { category: 'Internet-Trends', word: 'Hashtag' },
+  { category: 'Internet-Trends', word: 'Filter' },
+  { category: 'Gadgets', word: 'Airpods' },
+  { category: 'Gadgets', word: 'Powerbank' },
+  { category: 'Gadgets', word: 'Smartwatch' },
+];

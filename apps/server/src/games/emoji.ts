@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { EMOJI_PROMPTS, type EmojiPrompt } from '../data/emojiPrompts.js';
 import { isMatch, pickN } from './utils.js';
 
+const FALLBACK_POOL = EMOJI_PROMPTS;
 const TOTAL_ROUNDS = 6;
 const TIME_LIMIT_MS = 30000;
 const REVEAL_MS = 4500;
@@ -17,9 +18,9 @@ export class EmojiGame implements GameModule {
   private solvedOrder: { playerId: string; name: string; ms: number }[] = [];
   private totalPoints = new Map<string, number>();
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: EmojiPrompt[]) {
     this.ctx = ctx;
-    this.prompts = pickN(EMOJI_PROMPTS, TOTAL_ROUNDS);
+    this.prompts = pickN(pool.length > 0 ? pool : FALLBACK_POOL, TOTAL_ROUNDS);
     this.startRound();
   }
 

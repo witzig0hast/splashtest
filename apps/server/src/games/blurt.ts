@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { BLURT_CATEGORIES, BLURT_LETTERS } from '../data/blurtCategories.js';
 import { normalize, pickOne } from './utils.js';
 
+const FALLBACK_POOL = BLURT_CATEGORIES;
 const TOTAL_ROUNDS = 4;
 const TIME_LIMIT_MS = 60000;
 const REVEAL_MS = 7000;
@@ -18,15 +19,17 @@ export class BlurtGame implements GameModule {
   private words = new Map<string, string[]>(); // playerId -> words (original casing)
   private totalPoints = new Map<string, number>();
   private lastRoundPoints = new Map<string, number>();
+  private categoryPool: string[];
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: string[]) {
     this.ctx = ctx;
+    this.categoryPool = pool.length > 0 ? pool : FALLBACK_POOL;
     this.startRound();
   }
 
   private startRound() {
     this.phase = 'playing';
-    this.category = pickOne(BLURT_CATEGORIES);
+    this.category = pickOne(this.categoryPool);
     this.letter = pickOne(BLURT_LETTERS);
     this.startedAt = Date.now();
     this.words.clear();

@@ -7,3 +7,11 @@ export const SKETCH_WORDS: string[] = [
   'Glühbirne', 'Fledermaus', 'Schneekönigin', 'Igel', 'Löwe', 'Anker',
   'Skateboard', 'Kürbis', 'Schloss', 'Spinnennetz', 'Kompass', 'Karussell',
 ];
+
+export const SKETCH_WORDS_JUGENDLICH: string[] = [
+  'Selfie', 'Hashtag', 'Kopfhörer', 'Influencer', 'Meme', 'Emoji', 'Controller',
+  'Streamer', 'Handyhülle', 'Powerbank', 'Airpods', 'Sneaker', 'Energy-Drink',
+  'Filter', 'Avatar', 'Joystick', 'Smartwatch', 'Kamera-Drohne', 'Skateboard',
+  'Gaming-Stuhl', 'Ladekabel', 'Mikrofon', 'Grafikkarte', 'Kapuzenpulli',
+];
+

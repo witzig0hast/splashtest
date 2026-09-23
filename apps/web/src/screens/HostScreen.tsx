@@ -1,18 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import { getGameMeta } from '@splash/shared';
 import { useStore } from '../state/store';
 import { useRouter } from '../lib/router';
 import { getServerUrl } from '../lib/serverUrl';
 import PlayerList from '../components/PlayerList';
 import GameSelectGrid from '../components/GameSelectGrid';
+import GenrePicker from '../components/GenrePicker';
 import RoundResultsView from '../components/RoundResultsView';
 import PartyOverView from '../components/PartyOverView';
 import GameHostView from '../games/GameHostView';
 
+interface GenreOption {
+  id: string;
+  label: string;
+}
+
 export default function HostScreen() {
   const { path, navigate } = useRouter();
-  const { room, code, gameId, hostView, gameName, roundResults, startGame, backToSelect, endParty, kickPlayer, resetParty } =
+  const { room, code, gameId, hostView, gameName, roundResults, error, startGame, backToSelect, endParty, kickPlayer, resetParty, clearError } =
     useStore();
+
+  const [pendingGameId, setPendingGameId] = useState<string | null>(null);
+  const [genres, setGenres] = useState<GenreOption[] | null>(null);
+  const [starting, setStarting] = useState(false);
 
   useEffect(() => {
     const parts = path.split('/').filter(Boolean);
@@ -28,6 +39,14 @@ export default function HostScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (room?.phase === 'in-game' || error) {
+      setStarting(false);
+      setPendingGameId(null);
+      setGenres(null);
+    }
+  }, [room?.phase, error]);
+
   if (!room || !code) {
     return (
       <div className="container center-col">
@@ -42,6 +61,30 @@ export default function HostScreen() {
 
   const handleEndParty = () => {
     if (window.confirm('Party wirklich beenden? Der Endstand wird gezeigt.')) endParty();
+  };
+
+  const handleSelectGame = async (id: string) => {
+    setPendingGameId(id);
+    setGenres(null);
+    try {
+      const res = await fetch(`${getServerUrl()}/api/games/${id}/genres`);
+      const data: { genres: GenreOption[] } = await res.json();
+      if (!data.genres || data.genres.length === 0) {
+        setPendingGameId(null);
+        startGame(id);
+      } else {
+        setGenres(data.genres);
+      }
+    } catch {
+      setPendingGameId(null);
+      startGame(id);
+    }
+  };
+
+  const confirmGenre = (genreId: string) => {
+    if (!pendingGameId) return;
+    setStarting(true);
+    startGame(pendingGameId, genreId);
   };
 
   return (
@@ -77,7 +120,30 @@ export default function HostScreen() {
             <h2 className="pop-title" style={{ textAlign: 'center' }}>
               Spiel wählen
             </h2>
-            <GameSelectGrid connectedCount={connectedCount} playedGameIds={room.playedGameIds} onSelect={startGame} />
+            {error && (
+              <div className="error-banner" onClick={clearError} style={{ cursor: 'pointer' }}>
+                {error} (antippen zum Schließen)
+              </div>
+            )}
+            {starting && pendingGameId ? (
+              <div className="card center-col" style={{ flex: 'none', gap: 10, padding: 32 }}>
+                <span className="big-emoji pulse">{getGameMeta(pendingGameId)?.emoji ?? '🎮'}</span>
+                <p className="muted">{getGameMeta(pendingGameId)?.name} wird vorbereitet …</p>
+              </div>
+            ) : pendingGameId ? (
+              <GenrePicker
+                gameName={getGameMeta(pendingGameId)?.name ?? ''}
+                genres={genres}
+                loading={!genres}
+                onSelect={confirmGenre}
+                onCancel={() => {
+                  setPendingGameId(null);
+                  setGenres(null);
+                }}
+              />
+            ) : (
+              <GameSelectGrid connectedCount={connectedCount} playedGameIds={room.playedGameIds} onSelect={handleSelectGame} />
+            )}
           </div>
         </div>
       )}

@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { SKETCH_WORDS } from '../data/sketchWords.js';
 import { isMatch, pickN, shuffle, wordMask } from './utils.js';
 
+const FALLBACK_POOL = SKETCH_WORDS;
 const MAX_ROUNDS = 6;
 const CHOOSE_MS = 12000;
 const DRAW_MS = 75000;
@@ -28,9 +29,11 @@ export class SketchGame implements GameModule {
   private guessFeed: GuessEntry[] = [];
   private phaseStartedAt = 0;
   private totalPoints = new Map<string, number>();
+  private wordPool: string[];
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: string[]) {
     this.ctx = ctx;
+    this.wordPool = pool.length >= 3 ? pool : FALLBACK_POOL;
     const ids = ctx.connectedPlayers().map((p) => p.id);
     this.drawerOrder = shuffle(ids).slice(0, Math.min(MAX_ROUNDS, ids.length));
     this.startRound();
@@ -50,8 +53,8 @@ export class SketchGame implements GameModule {
       return;
     }
     this.phase = 'choosing';
-    const pool = SKETCH_WORDS.filter((w) => !this.usedWords.has(w));
-    this.wordChoices = pickN(pool.length >= 3 ? pool : SKETCH_WORDS, 3);
+    const pool = this.wordPool.filter((w) => !this.usedWords.has(w));
+    this.wordChoices = pickN(pool.length >= 3 ? pool : this.wordPool, 3);
     this.chosenWord = null;
     this.strokes = [];
     this.correctGuessers.clear();

@@ -27,7 +27,10 @@ export interface PointsAward {
   detail?: string;
 }
 
-export type GameFactory = (ctx: GameContext) => GameModule;
+/** `pool` is the pre-resolved content for this session (already picked by
+ * genre/AI/custom-pack - see admin/contentResolver.ts), empty for games
+ * that don't need content (e.g. reaction). */
+export type GameFactory = (ctx: GameContext, pool: unknown[]) => GameModule;
 
 export class GameContext {
   constructor(

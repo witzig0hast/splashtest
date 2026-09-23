@@ -50,7 +50,7 @@ interface StoreState {
   resumeHost: (code: string) => void;
   joinRoom: (code: string, name: string, avatarEmoji: string, colorHex: string) => Promise<void>;
   resumePlayerIfSaved: () => boolean;
-  startGame: (gameId: string) => void;
+  startGame: (gameId: string, genre?: string) => void;
   backToSelect: () => void;
   endParty: () => void;
   leaveRoom: () => void;
@@ -201,7 +201,7 @@ export const useStore = create<StoreState>((setState, getState) => ({
     return true;
   },
 
-  startGame: (gameId: string) => getSocket().emit(ClientEvents.StartGame, { gameId }),
+  startGame: (gameId: string, genre?: string) => getSocket().emit(ClientEvents.StartGame, { gameId, genre }),
   backToSelect: () => getSocket().emit(ClientEvents.BackToSelect),
   endParty: () => getSocket().emit(ClientEvents.EndParty),
   leaveRoom: () => {

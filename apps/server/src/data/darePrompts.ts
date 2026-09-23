@@ -31,3 +31,29 @@ export const DARE_PROMPTS: string[] = [
   'Zeige deinen besten Roboter-Tanz.',
   'Lass dir von der Gruppe einen Spitznamen geben, den du für den Rest des Abends benutzt.',
 ];
+
+export const TRUTH_PROMPTS_JUGENDLICH: string[] = [
+  'Was ist der peinlichste Eintrag in deinem Suchverlauf?',
+  'Welchen Trend fandest du cringe, hast aber trotzdem mitgemacht?',
+  'Was ist die unsinnigste Ausrede, warum du offline warst?',
+  'Wer aus der Gruppe würde am ehesten viral gehen – und warum?',
+  'Was postest du niemals, egal wie witzig es ist?',
+  'Was war dein peinlichster Gamer-Tag/Nutzername?',
+  'Welche App nutzt du heimlich am meisten?',
+  'Was hast du schon mal aus Versehen gelikt und sofort bereut?',
+  'Was ist die längste Zeit, die du am Stück gezockt hast?',
+  'Welche Serie hast du komplett durchgebingt, obwohl du früh aufstehen musstest?',
+];
+
+export const DARE_PROMPTS_JUGENDLICH: string[] = [
+  'Mach 15 Sekunden lang den nervigsten Tanz, den du kennst.',
+  'Sprich die nächste Runde nur in Emoji-Beschreibungen.',
+  'Lass dir von der Gruppe eine Insta-Bio diktieren und lies sie laut vor.',
+  'Mach dein bestes "virales Selfie"-Gesicht.',
+  'Rappe die letzten drei Nachrichten aus einem deiner Chats (ohne Namen zu nennen).',
+  'Erfinde einen neuen Trend-Tanz und zeig ihn der Gruppe.',
+  'Beschreibe dein Lieblingsspiel, ohne seinen Namen zu sagen – die anderen raten.',
+  'Mach 20 Sekunden lang Kommentarspalten-Sounds nach ("Erster!", "🔥🔥🔥" etc.).',
+  'Lass dir ein Wort geben und erkläre es wie ein Influencer in einem Werbevideo.',
+  'Zeig deine beste Pose für ein Profilbild.',
+];

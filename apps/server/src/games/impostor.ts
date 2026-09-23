@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { IMPOSTOR_WORD_SETS, type ImpostorWordSet } from '../data/impostorWords.js';
 import { isMatch, pickN, shuffle } from './utils.js';
 
+const FALLBACK_POOL = IMPOSTOR_WORD_SETS;
 const TOTAL_ROUNDS = 3;
 const CLUE_TURN_MS = 20000;
 const VOTE_MS = 20000;
@@ -23,9 +24,9 @@ export class ImpostorGame implements GameModule {
   private caught = false;
   private totalPoints = new Map<string, number>();
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: ImpostorWordSet[]) {
     this.ctx = ctx;
-    this.wordSets = pickN(IMPOSTOR_WORD_SETS, TOTAL_ROUNDS);
+    this.wordSets = pickN(pool.length > 0 ? pool : FALLBACK_POOL, TOTAL_ROUNDS);
     this.startRound();
   }
 

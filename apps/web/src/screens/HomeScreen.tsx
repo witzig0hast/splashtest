@@ -57,6 +57,9 @@ export default function HomeScreen() {
         <button className="link-btn" onClick={() => setShowSettings((v) => !v)}>
           {isCustomServerRelevant() ? 'Server-Adresse einstellen' : 'Erweitert: Server-Adresse'}
         </button>
+        <button className="link-btn" onClick={() => navigate('/admin')}>
+          Admin-Bereich
+        </button>
       </div>
 
       {showSettings && (

@@ -3,6 +3,8 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { TRIVIA_QUESTIONS, type TriviaQuestion } from '../data/triviaQuestions.js';
 import { pickN } from './utils.js';
 
+const FALLBACK_POOL = TRIVIA_QUESTIONS;
+
 const TOTAL_ROUNDS = 8;
 const TIME_LIMIT_MS = 15000;
 const REVEAL_MS = 3500;
@@ -22,9 +24,9 @@ export class QuizGame implements GameModule {
   private totalPoints = new Map<string, number>();
   private lastRoundPoints = new Map<string, number>();
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: TriviaQuestion[]) {
     this.ctx = ctx;
-    this.questions = pickN(TRIVIA_QUESTIONS, TOTAL_ROUNDS);
+    this.questions = pickN(pool.length > 0 ? pool : FALLBACK_POOL, TOTAL_ROUNDS);
     this.startRound();
   }
 

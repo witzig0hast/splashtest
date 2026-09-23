@@ -7,6 +7,8 @@ import { createServer } from 'node:http';
 import { Server } from 'socket.io';
 import { RoomManager } from './roomManager.js';
 import { registerSocketHandlers } from './socketHandlers.js';
+import { adminRouter } from './admin/routes.js';
+import { genresFor } from './admin/contentResolver.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 8787;
@@ -19,6 +21,12 @@ app.use(express.json());
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, rooms: rooms.size });
 });
+
+app.get('/api/games/:gameId/genres', (req, res) => {
+  res.json({ genres: genresFor(req.params.gameId) });
+});
+
+app.use('/api/admin', adminRouter);
 
 const webDist = path.resolve(__dirname, '../../web/dist');
 if (fs.existsSync(webDist)) {

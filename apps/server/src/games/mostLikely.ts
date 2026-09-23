@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { MOST_LIKELY_PROMPTS } from '../data/mostLikelyPrompts.js';
 import { pickN } from './utils.js';
 
+const FALLBACK_POOL = MOST_LIKELY_PROMPTS;
 const TOTAL_ROUNDS = 6;
 const VOTE_MS = 15000;
 const REVEAL_MS = 5000;
@@ -15,9 +16,9 @@ export class MostLikelyGame implements GameModule {
   private votes = new Map<string, string>(); // voterId -> candidateId
   private totalPoints = new Map<string, number>();
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: string[]) {
     this.ctx = ctx;
-    this.prompts = pickN(MOST_LIKELY_PROMPTS, TOTAL_ROUNDS);
+    this.prompts = pickN(pool.length > 0 ? pool : FALLBACK_POOL, TOTAL_ROUNDS);
     this.startRound();
   }
 

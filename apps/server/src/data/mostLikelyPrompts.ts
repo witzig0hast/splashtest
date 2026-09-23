@@ -28,3 +28,20 @@ export const MOST_LIKELY_PROMPTS: string[] = [
   'Wer würde am ehesten alle Karten bei einem Kartenspiel verlieren?',
   'Wer würde am ehesten Selfies am Rande einer Klippe machen?',
 ];
+
+export const MOST_LIKELY_PROMPTS_JUGENDLICH: string[] = [
+  'Wer würde am ehesten vergessen, seine Story zu posten, und es erst am nächsten Tag merken?',
+  'Wer würde am ehesten beim Zocken laut rumschreien?',
+  'Wer würde am ehesten ungewollt im Hintergrund eines viralen Videos landen?',
+  'Wer würde am ehesten seinen Namen unter ein virales Video kommentieren?',
+  'Wer würde am ehesten 5 Stunden am Stück zocken, ohne eine Pause zu merken?',
+  'Wer würde am ehesten im Videocall einschlafen?',
+  'Wer würde am ehesten aus Versehen eine Serie spoilern?',
+  'Wer würde am ehesten bei einem TikTok-Trend mitmachen und es bereuen?',
+  'Wer würde am ehesten sein Handy im Unterricht fallen lassen?',
+  'Wer würde am ehesten mehr Bildschirmzeit haben als der Rest der Gruppe zusammen?',
+  'Wer würde am ehesten einen Screenshot machen, ohne es zu sagen?',
+  'Wer würde am ehesten seinen Gamer-Tag vergessen, wenn man ihn fragt?',
+  'Wer würde am ehesten die ganze Nacht durchzocken?',
+  'Wer würde am ehesten aus Versehen jemanden liken, den er/sie stalkt?',
+];

@@ -62,6 +62,8 @@ export interface ErrorPayload {
 
 export interface StartGamePayload {
   gameId: string;
+  /** Content style id: 'classic' | 'jugendlich' | 'ki' | a custom pack's genre. Omit for genre-less games. */
+  genre?: string;
 }
 
 export interface PlayerActionPayload {

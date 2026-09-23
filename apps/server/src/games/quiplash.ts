@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { QUIPLASH_PROMPTS } from '../data/quiplashPrompts.js';
 import { pickN, shuffle } from './utils.js';
 
+const FALLBACK_POOL = QUIPLASH_PROMPTS;
 const TOTAL_ROUNDS = 5;
 const WRITE_MS = 25000;
 const VOTE_MS = 18000;
@@ -18,9 +19,9 @@ export class QuiplashGame implements GameModule {
   private votes = new Map<string, string>(); // voterId -> answerOwnerId
   private totalPoints = new Map<string, number>();
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: string[]) {
     this.ctx = ctx;
-    this.prompts = pickN(QUIPLASH_PROMPTS, TOTAL_ROUNDS);
+    this.prompts = pickN(pool.length > 0 ? pool : FALLBACK_POOL, TOTAL_ROUNDS);
     this.startRound();
   }
 

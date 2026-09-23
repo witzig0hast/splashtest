@@ -33,3 +33,20 @@ export const WYR_PROMPTS: WyrPrompt[] = [
   { a: 'die Superkraft Teleportation haben', b: 'die Superkraft Gedankenlesen haben' },
   { a: 'nie wieder duschen müssen', b: 'nie wieder Zähne putzen müssen' },
 ];
+
+export const WYR_PROMPTS_JUGENDLICH: WyrPrompt[] = [
+  { a: 'dein Handy eine Woche verlieren', b: 'einen Monat kein Internet haben' },
+  { a: 'nur noch in Emojis schreiben können', b: 'nie wieder Emojis benutzen dürfen' },
+  { a: 'dein peinlichstes Video geht viral', b: 'dein ganzer Chatverlauf wird öffentlich' },
+  { a: 'nur noch Reels schauen dürfen', b: 'nur noch klassisches TV schauen dürfen' },
+  { a: 'dein Akku ist immer bei 1%', b: 'dein Handy hat nie WLAN' },
+  { a: 'im Klassenchat immer zuerst antworten müssen', b: 'nie im Klassenchat antworten dürfen' },
+  { a: 'jeden Tag ein Selfie posten müssen', b: 'nie wieder ein Foto posten dürfen' },
+  { a: 'jeder sieht, wie oft du seine Story anschaust', b: 'du siehst nie, wer deine Story anschaut' },
+  { a: 'für immer im Ladebildschirm eines Games feststecken', b: 'für immer Buffering beim Streamen haben' },
+  { a: 'dein Gamer-Name wird dein echter Name', b: 'dein echter Name wird dein Gamer-Name' },
+  { a: 'alle deine Likes werden öffentlich sichtbar', b: 'alle deine gesendeten Nachrichten werden öffentlich' },
+  { a: 'nie wieder Kopfhörer benutzen dürfen', b: 'nie wieder Lautsprecher benutzen dürfen' },
+  { a: 'jede Serie spoilern bevor sie rauskommt', b: 'jede Serie sofort gespoilert bekommen' },
+  { a: 'dein Handy-Display bleibt für immer gesprungen', b: 'dein Handy-Akku hält nur noch 2 Stunden' },
+];

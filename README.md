@@ -6,7 +6,10 @@ zweites Handy), **alle anderen spielen mit dem eigenen Handy mit** – per
 Browser über das Internet *oder* offline im selben WLAN, und optional als
 installierbare Android-App (APK).
 
-10 Spielmodi, unbegrenzte Runden, komplett kostenlos, kein Login nötig.
+10 Spielmodi, unbegrenzte Runden, komplett kostenlos, kein Login nötig. Über
+ein passwortgeschütztes Admin-Dashboard lassen sich außerdem eigene
+KI-Modelle (beliebiger OpenAI-kompatibler Anbieter) und eigene Fragen-Pakete
+für neue Genres anlegen, siehe [Admin-Bereich](#admin-bereich-ki-modelle--eigene-fragen-pakete).
 
 ## Spielmodi
 
@@ -132,6 +135,48 @@ Ein eigenes App-Icon lässt sich mit
 [`@capacitor/assets`](https://github.com/ionic-team/capacitor-assets) aus
 einem Quellbild generieren (`npx @capacitor/assets generate` im Ordner
 `apps/mobile`).
+
+## Admin-Bereich: KI-Modelle & eigene Fragen-Pakete
+
+Unter `/admin` (Link auch auf der Startseite: „Admin-Bereich“) gibt es ein
+passwortgeschütztes Dashboard, um Fragen/Prompts über die eingebauten
+Genres „Klassisch“ und „Jugendlich“ hinaus zu erweitern – ganz ohne
+Code-Änderung oder Redeploy.
+
+**Passwort setzen**: per Umgebungsvariable `ADMIN_PASSWORD` (Standard, falls
+nicht gesetzt: `splash-admin` – für einen öffentlichen Deploy unbedingt
+ändern!). Das Login liefert ein 24h gültiges Token, das im Browser
+gespeichert wird.
+
+```bash
+ADMIN_PASSWORD=dein-sicheres-passwort npm start
+```
+
+Zwei Arten von „Custom Models“, wie im Dashboard-Tab-Titel:
+
+- **🤖 KI-Modelle**: ein beliebiger OpenAI-kompatibler Chat-Completions-
+  Endpunkt (funktioniert z.B. mit OpenAI selbst, einem Proxy, OpenRouter,
+  Ollama, …) – einfach Bezeichnung, Endpoint-URL, Modellname und API-Key
+  eintragen. Es kann immer nur **ein** Modell gleichzeitig aktiv sein; wird
+  beim Spielstart der Stil „🤖 KI-generiert“ gewählt, generiert der Server
+  live passenden Content für das jeweilige Spiel über dieses Modell (mit
+  automatischem Fallback auf die klassischen Fragen, falls die Anfrage
+  fehlschlägt). API-Keys werden nur maskiert an den Browser zurückgegeben
+  und ausschließlich lokal in `apps/server/data/admin-store.json`
+  gespeichert (Datei ist per `.gitignore` ausgeschlossen, landet also nie
+  im Repo).
+- **📝 Fragen-Pakete**: manuell eingetragene Content-Pakete für ein
+  bestimmtes Spiel und einen frei wählbaren Genre-Namen (z.B. „Fußball“,
+  „Anime“, „Firmenfeier“), als JSON-Array im jeweils vom Spiel erwarteten
+  Format (Beispiel-Schema wird im Formular pro Spiel angezeigt).
+
+**Genre-Auswahl beim Spielstart**: Sobald der Host im Lobby-Bildschirm ein
+Spiel antippt, das Frage-/Prompt-Content braucht, erscheint automatisch ein
+Stil-Auswahl-Dialog mit allen verfügbaren Genres für dieses Spiel –
+mindestens „🎓 Klassisch“ und „😎 Jugendlich“, plus jedes selbst angelegte
+Fragen-Paket-Genre für dieses Spiel, plus „🤖 KI-generiert“ sobald ein
+Modell aktiv ist. Spiele ohne Frage-Content (z.B. Blitzreflex) starten wie
+gewohnt direkt ohne Zwischenschritt.
 
 ## Architektur / neuen Spielmodus hinzufügen
 

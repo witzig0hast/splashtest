@@ -11,3 +11,6 @@ apps/mobile/android/local.properties
 apps/mobile/ios/App/Pods/
 .vite/
 *.tsbuildinfo
+
+# Runtime admin data (AI model API keys, custom content packs) - never commit.
+apps/server/data/

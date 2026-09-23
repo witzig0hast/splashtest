@@ -3,6 +3,8 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { DARE_PROMPTS, TRUTH_PROMPTS } from '../data/darePrompts.js';
 import { pickOne, shuffle } from './utils.js';
 
+const FALLBACK_TRUTHS = TRUTH_PROMPTS;
+const FALLBACK_DARES = DARE_PROMPTS;
 const MAX_TURNS = 10;
 const CHOOSE_MS = 15000;
 const PERFORM_MS = 45000;
@@ -19,9 +21,15 @@ export class DareGame implements GameModule {
   private ratings = new Map<string, 'up' | 'down'>();
   private usedPrompts = new Set<string>();
   private totalPoints = new Map<string, number>();
+  private truthPool: string[];
+  private darePool: string[];
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: { kind: 'truth' | 'dare'; text: string }[]) {
     this.ctx = ctx;
+    const truths = pool.filter((p) => p.kind === 'truth').map((p) => p.text);
+    const dares = pool.filter((p) => p.kind === 'dare').map((p) => p.text);
+    this.truthPool = truths.length > 0 ? truths : FALLBACK_TRUTHS;
+    this.darePool = dares.length > 0 ? dares : FALLBACK_DARES;
     const ids = ctx.connectedPlayers().map((p) => p.id);
     this.turnOrder = shuffle(ids).slice(0, Math.min(MAX_TURNS, ids.length));
     this.startTurn();
@@ -50,8 +58,9 @@ export class DareGame implements GameModule {
 
   private applyChoice(choice: 'truth' | 'dare') {
     this.choice = choice;
-    const pool = (choice === 'truth' ? TRUTH_PROMPTS : DARE_PROMPTS).filter((p) => !this.usedPrompts.has(p));
-    this.prompt = pickOne(pool.length > 0 ? pool : choice === 'truth' ? TRUTH_PROMPTS : DARE_PROMPTS);
+    const source = choice === 'truth' ? this.truthPool : this.darePool;
+    const pool = source.filter((p) => !this.usedPrompts.has(p));
+    this.prompt = pickOne(pool.length > 0 ? pool : source);
     this.usedPrompts.add(this.prompt);
     this.phase = 'prompt';
     this.ctx.push(this);

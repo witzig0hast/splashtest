@@ -5,6 +5,7 @@ import { useStore } from './state/store';
 import HomeScreen from './screens/HomeScreen';
 import HostScreen from './screens/HostScreen';
 import PlayerScreen from './screens/PlayerScreen';
+import AdminScreen from './screens/AdminScreen';
 
 const DEFAULT_STAGE = '#5b6cf9';
 
@@ -12,6 +13,7 @@ function Routes() {
   const { path } = useRouter();
   if (path.startsWith('/host')) return <HostScreen />;
   if (path.startsWith('/play')) return <PlayerScreen />;
+  if (path.startsWith('/admin')) return <AdminScreen />;
   return <HomeScreen />;
 }
 

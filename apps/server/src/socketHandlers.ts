@@ -15,6 +15,7 @@ import {
 } from '@splash/shared';
 import { RoomManager, toPublicPlayer, toRoomSummary, type ServerPlayer } from './roomManager.js';
 import { GameContext, GAME_FACTORIES } from './games/index.js';
+import { resolveContent } from './admin/contentResolver.js';
 
 interface SocketData {
   code?: string;
@@ -121,10 +122,10 @@ export function registerSocketHandlers(io: Server, rooms: RoomManager) {
       broadcastRoom(io, room);
     });
 
-    socket.on(ClientEvents.StartGame, (payload: StartGamePayload) => {
+    socket.on(ClientEvents.StartGame, async (payload: StartGamePayload) => {
       const room = getRoomForSocket(rooms, socket);
       if (!room || !socket.data.isHost) return;
-      if (room.phase === 'in-game') return;
+      if (room.phase === 'in-game' || room.starting) return;
       const meta = getGameMeta(payload.gameId);
       const factory = GAME_FACTORIES[payload.gameId];
       if (!meta || !factory) return emitError(socket, 'Unbekanntes Spiel.');
@@ -132,12 +133,29 @@ export function registerSocketHandlers(io: Server, rooms: RoomManager) {
       if (connectedCount < meta.minPlayers) {
         return emitError(socket, `${meta.name} braucht mindestens ${meta.minPlayers} Spieler:innen.`);
       }
+
+      room.starting = true;
+      let pool: unknown[] = [];
+      try {
+        pool = await resolveContent(payload.gameId, payload.genre);
+      } catch (err) {
+        console.error('content resolution failed', err);
+      }
+
+      // The room may have moved on while we were awaiting content (party
+      // ended, host started something else) - don't clobber that state.
+      const stillStartable = room.phase === 'lobby' || room.phase === 'game-select' || room.phase === 'round-results';
+      if (rooms.getRoom(room.code) !== room || !stillStartable) {
+        room.starting = false;
+        return;
+      }
+      room.starting = false;
       room.phase = 'in-game';
       room.currentGameId = payload.gameId;
       room.touch();
       const ctx = new GameContext(io, room, payload.gameId, meta.name);
       io.to(room.code).emit(ServerEvents.GameStarted, { gameId: payload.gameId, gameName: meta.name });
-      const module = factory(ctx);
+      const module = factory(ctx, pool);
       room.currentModule = module;
       broadcastRoom(io, room);
     });

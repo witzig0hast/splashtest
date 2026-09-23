@@ -3,6 +3,7 @@ import type { GameContext, GameModule, PlayerActionPayload, PointsAward } from '
 import { WYR_PROMPTS, type WyrPrompt } from '../data/wyrPrompts.js';
 import { pickN } from './utils.js';
 
+const FALLBACK_POOL = WYR_PROMPTS;
 const TOTAL_ROUNDS = 6;
 const VOTE_MS = 12000;
 const REVEAL_MS = 4500;
@@ -15,9 +16,9 @@ export class WyrGame implements GameModule {
   private votes = new Map<string, 'A' | 'B'>();
   private totalPoints = new Map<string, number>();
 
-  constructor(ctx: GameContext) {
+  constructor(ctx: GameContext, pool: WyrPrompt[]) {
     this.ctx = ctx;
-    this.prompts = pickN(WYR_PROMPTS, TOTAL_ROUNDS);
+    this.prompts = pickN(pool.length > 0 ? pool : FALLBACK_POOL, TOTAL_ROUNDS);
     this.startRound();
   }
 

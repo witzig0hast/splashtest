@@ -31,3 +31,18 @@ export const EMOJI_PROMPTS: EmojiPrompt[] = [
   { emojis: '🐭🏰', answer: 'Disneyland' },
   { emojis: '🎃👻🍬', answer: 'Halloween' },
 ];
+
+export const EMOJI_PROMPTS_JUGENDLICH: EmojiPrompt[] = [
+  { emojis: '🧢', answer: 'Cap', altAnswers: ['Lüge', 'Cap stellen'] },
+  { emojis: '💀', answer: 'Tot vor Lachen', altAnswers: ['Skull', 'Ich sterbe'] },
+  { emojis: '🔥', answer: 'Lit', altAnswers: ['Krass', 'Fire'] },
+  { emojis: '🐐', answer: 'GOAT', altAnswers: ['Greatest of all time'] },
+  { emojis: '🫡', answer: 'Respekt' },
+  { emojis: '💯', answer: 'Hundert', altAnswers: ['Fakt', 'Genau'] },
+  { emojis: '🤡', answer: 'Clown' },
+  { emojis: '👻💬', answer: 'Snapchat' },
+  { emojis: '⛏️🟫', answer: 'Minecraft' },
+  { emojis: '🏝️🔫', answer: 'Fortnite', altAnswers: ['Battle Royale'] },
+  { emojis: '🎮📺', answer: 'Twitch', altAnswers: ['Livestream'] },
+  { emojis: '🕺📱', answer: 'TikTok-Tanz', altAnswers: ['TikTok'] },
+];

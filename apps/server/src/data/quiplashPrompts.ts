@@ -24,3 +24,20 @@ export const QUIPLASH_PROMPTS: string[] = [
   'Ein schlechter Rat für den ersten Arbeitstag: ___',
   'Was ein Geist auf keinen Fall tun sollte, um gruselig zu sein: ___',
 ];
+
+export const QUIPLASH_PROMPTS_JUGENDLICH: string[] = [
+  'Die schlechteste Idee für einen TikTok-Trend: ___',
+  'Was du niemals in die Klassengruppe schreiben solltest: ___',
+  'Ein schlechter Name für einen Gaming-Clan: ___',
+  'Was garantiert nicht in einer Insta-Bio stehen sollte: ___',
+  'Die unnötigste App aller Zeiten: ___',
+  'Was ein Roboter-Influencer niemals posten sollte: ___',
+  'Der peinlichste Klingelton für ein Schulhandy: ___',
+  'Was man auf keinen Fall als Streamer-Name nehmen sollte: ___',
+  'Die schlechteste Caption für ein Urlaubsfoto: ___',
+  'Ein Hashtag, der garantiert floppt: ___',
+  'Was KI niemals für uns übernehmen sollte: ___',
+  'Der peinlichste Skin, den man im Game kaufen könnte: ___',
+  'Was man auf keinen Fall in eine Story posten sollte: ___',
+  'Die schlechteste Ausrede für schlechtes WLAN: ___',
+];

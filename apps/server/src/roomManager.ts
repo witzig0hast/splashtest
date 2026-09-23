@@ -26,6 +26,9 @@ export class Room {
   currentModule: GameModule | null = null;
   playedGameIds: string[] = [];
   timers = new Map<string, NodeJS.Timeout>();
+  /** True while a StartGame request is resolving content (possibly an async
+   * AI call) - guards against double-starts during that window. */
+  starting = false;
   createdAt = Date.now();
   lastActivityAt = Date.now();
 

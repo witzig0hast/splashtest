@@ -36,3 +36,22 @@ export const TRIVIA_QUESTIONS: TriviaQuestion[] = [
   { question: 'Wie heißt das größte Organ des menschlichen Körpers?', options: ['Leber', 'Gehirn', 'Haut', 'Lunge'], correctIndex: 2 },
   { question: 'Welcher Planet wird als "Roter Planet" bezeichnet?', options: ['Jupiter', 'Mars', 'Saturn', 'Venus'], correctIndex: 1 },
 ];
+
+export const TRIVIA_QUESTIONS_JUGENDLICH: TriviaQuestion[] = [
+  { question: 'Wie heißt die App mit dem Geist als Logo?', options: ['TikTok', 'Snapchat', 'BeReal', 'Instagram'], correctIndex: 1 },
+  { question: 'In welchem Spiel baut man Welten aus Blöcken?', options: ['Fortnite', 'Roblox', 'Minecraft', 'Terraria'], correctIndex: 2 },
+  { question: 'Welches Unternehmen gehört zu YouTube?', options: ['Meta', 'Google', 'Amazon', 'Microsoft'], correctIndex: 1 },
+  { question: 'Wie nennt man ein Video/Bild, das sich rasend schnell verbreitet?', options: ['Reel', 'Story', 'Meme', 'Stream'], correctIndex: 2 },
+  { question: 'Welche Plattform ist bekannt für Livestreams von Gamer:innen?', options: ['Twitch', 'Spotify', 'Pinterest', 'Discord'], correctIndex: 0 },
+  { question: 'Wofür steht die Abkürzung "lol"?', options: ['Lots of love', 'Laughing out loud', 'Live on line', 'Lack of logic'], correctIndex: 1 },
+  { question: 'In welchem Spiel müssen Verräter unter Astronaut:innen enttarnt werden?', options: ['Fortnite', 'Among Us', 'Valorant', 'Fall Guys'], correctIndex: 1 },
+  { question: 'Welche Streaming-Plattform hat ein rotes "N" als Logo?', options: ['Disney+', 'Netflix', 'Prime Video', 'Paramount+'], correctIndex: 1 },
+  { question: 'Wie nennt man Fotos/Videos, die nach 24 Stunden verschwinden?', options: ['Post', 'Reel', 'Story', 'Feed'], correctIndex: 2 },
+  { question: 'Welcher Sprachassistent gehört zu Apple?', options: ['Alexa', 'Siri', 'Cortana', 'Bixby'], correctIndex: 1 },
+  { question: 'Wie heißt das beliebte Battle-Royale-Spiel mit buntem Baustil?', options: ['Fortnite', 'PUBG', 'Apex Legends', 'Warzone'], correctIndex: 0 },
+  { question: 'Welcher Messenger gehört zu Meta?', options: ['Telegram', 'Signal', 'WhatsApp', 'Discord'], correctIndex: 2 },
+  { question: 'Wie nennt man es, wenn Videos ruckeln, weil sie erst laden müssen?', options: ['Lagging', 'Buffering', 'Streaming', 'Caching'], correctIndex: 1 },
+  { question: 'Welche Farbe hat das Play-Symbol von Spotify?', options: ['Blau', 'Rot', 'Grün', 'Orange'], correctIndex: 2 },
+  { question: 'Wie heißt die Kurzvideo-Plattform mit dem Musiknoten-Logo?', options: ['TikTok', 'Vine', 'Triller', 'Reels'], correctIndex: 0 },
+  { question: 'Was bezeichnet man als "Cap" in der Jugendsprache?', options: ['Eine Mütze', 'Eine Lüge', 'Ein Kompliment', 'Ein Startsignal'], correctIndex: 1 },
+];
